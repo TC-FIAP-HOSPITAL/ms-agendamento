@@ -1,0 +1,252 @@
+openapi: 3.0.3
+info:
+  title: API de Gerenciamento de Agendamentos
+  version: 1.0.0
+  description: API para gerenciamento de agendamentos de pacientes e médicos
+
+tags:
+  - name: Agendamento
+    description: Operações relacionadas a agendamentos
+
+paths:
+  /agendamento:
+    post:
+      tags:
+        - Agendamento
+      summary: Criar um novo agendamento
+      operationId: createAgendamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgendamentoRequest'
+      responses:
+        '201':
+          description: Criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agendamento'
+        '400':
+          description: Erro de validação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - Agendamento
+      summary: Buscar lista de agendamentos
+      operationId: findAgendamentos
+      parameters:
+        - name: pacienteId
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/PacienteId'
+        - name: medicoId
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/MedicoId'
+        - name: status
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/Status'
+        - name: tipoAtendimento
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/TipoAtendimento'
+        - name: dataAgendamento
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: "2025-09-12T14:30:00Z"
+      responses:
+        '200':
+          description: Lista de agendamentos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Agendamento'
+        '404':
+          description: Nenhum item encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /agendamento/{id}:
+    patch:
+      tags:
+        - Agendamento
+      summary: Atualizar agendamento por ID
+      operationId: updateAgendamento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgendamentoRequest'
+      responses:
+        '200':
+          description: Atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agendamento'
+        '404':
+          description: Agendamento não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - Agendamento
+      summary: Deletar agendamento por ID
+      operationId: deleteAgendamento
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+      responses:
+        '204':
+          description: Removido com sucesso
+        '404':
+          description: Agendamento não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Id:
+      type: integer
+      format: int64
+      example: 1
+
+    PacienteId:
+      type: integer
+      format: int64
+      example: 123
+
+    MedicoId:
+      type: integer
+      format: int64
+      example: 45
+
+    TipoAtendimento:
+      type: string
+      enum: [CONSULTA, EXAME, RETORNO, CIRURGIA]
+      example: "CONSULTA"
+
+    Status:
+      type: string
+      enum: [AGENDADO, CONFIRMADO, CANCELADO, REALIZADO, REAGENDADO, NAO_COMPARECEU]
+      example: "AGENDADO"
+
+    Observacoes:
+      type: string
+      example: "Paciente deve levar resultados de exames anteriores"
+
+    DataCriacao:
+      type: string
+      format: date-time
+      example: "2025-09-12T10:00:00Z"
+
+    DataAtualizacao:
+      type: string
+      format: date-time
+      example: "2025-09-13T15:30:00Z"
+
+    Agendamento:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/Id'
+        pacienteId:
+          $ref: '#/components/schemas/PacienteId'
+        medicoId:
+          $ref: '#/components/schemas/MedicoId'
+        dataAgendamento:
+          type: string
+          format: date-time
+          example: "2025-09-20T14:30:00Z"
+        tipoAtendimento:
+          $ref: '#/components/schemas/TipoAtendimento'
+        status:
+          $ref: '#/components/schemas/Status'
+        observacoes:
+          $ref: '#/components/schemas/Observacoes'
+        dataCriacao:
+          $ref: '#/components/schemas/DataCriacao'
+        dataAtualizacao:
+          $ref: '#/components/schemas/DataAtualizacao'
+      required:
+        - pacienteId
+        - medicoId
+        - dataAgendamento
+        - tipoAtendimento
+        - status
+
+    AgendamentoRequest:
+      type: object
+      required:
+        - pacienteId
+        - medicoId
+        - dataAgendamento
+        - tipoAtendimento
+      properties:
+        pacienteId:
+          $ref: '#/components/schemas/PacienteId'
+        medicoId:
+          $ref: '#/components/schemas/MedicoId'
+        dataAgendamento:
+          type: string
+          format: date-time
+          example: "2025-09-20T14:30:00Z"
+        tipoAtendimento:
+          $ref: '#/components/schemas/TipoAtendimento'
+        status:
+          $ref: '#/components/schemas/Status'
+        observacoes:
+          $ref: '#/components/schemas/Observacoes'
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-09-12T18:45:00Z"
+        status:
+          type: integer
+          example: 404
+        error:
+          type: string
+          example: "Not Found"
+        message:
+          type: string
+          example: "Agendamento não encontrado"
+        path:
+          type: string
+          example: "/agendamento/99"
