@@ -14,9 +14,9 @@ public interface Agendamento {
 
     void salvar(AgendamentoDomain agendamentoDomain);
 
-    Optional<AgendamentoDomain> buscarId(Long id);
+    Optional<AgendamentoDomain> buscarId(String id);
 
-    List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status);
+    List<AgendamentoDomain> buscaAgendamento(String pacienteId, String medicoId, TipoAtendimento tipo, StatusAgendamento status);
 
-    Optional<AgendamentoDomain> buscarAgendamentoPorPacienteMedicoEData(Long pacienteId, Long medicoId, LocalDateTime dataAgendamento);
+    Optional<AgendamentoDomain> buscarAgendamentoPorPacienteMedicoEData(String pacienteId, String medicoId, LocalDateTime dataAgendamento);
 }

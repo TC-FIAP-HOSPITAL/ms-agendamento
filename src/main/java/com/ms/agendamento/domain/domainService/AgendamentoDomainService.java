@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public interface AgendamentoDomainService {
 
-    void checarExistenciaAgendamento(Long idPaciente, Long idMedico, LocalDateTime dataAgendamento);
+    void checarExistenciaAgendamento(String idPaciente, String idMedico, LocalDateTime dataAgendamento);
 
-    AgendamentoDomain findByIdAgendamento(Long idAgendamento);
+    AgendamentoDomain findByIdAgendamento(String idAgendamento);
 }
