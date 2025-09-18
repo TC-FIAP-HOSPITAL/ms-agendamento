@@ -61,13 +61,12 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/TipoAtendimento'
-        - name: dataAgendamento
+        - name: dataAgendamento # AJUSTADO AQUI
           in: query
           required: false
           schema:
             type: string
-            format: date-time
-            example: "2025-09-12T14:30:00Z"
+            example: "2025-09-12T14:30:00"
       responses:
         '200':
           description: Lista de agendamentos
@@ -170,13 +169,11 @@ components:
 
     DataCriacao:
       type: string
-      format: date-time
-      example: "2025-09-12T10:00:00Z"
+      example: "2025-09-12T10:00:00"
 
     DataAtualizacao:
       type: string
-      format: date-time
-      example: "2025-09-13T15:30:00Z"
+      example: "2025-09-13T15:30:00"
 
     Agendamento:
       type: object
@@ -189,8 +186,7 @@ components:
           $ref: '#/components/schemas/MedicoId'
         dataAgendamento:
           type: string
-          format: date-time
-          example: "2025-09-20T14:30:00Z"
+          example: "2025-09-20T14:30:00"
         tipoAtendimento:
           $ref: '#/components/schemas/TipoAtendimento'
         status:
@@ -222,8 +218,7 @@ components:
           $ref: '#/components/schemas/MedicoId'
         dataAgendamento:
           type: string
-          format: date-time
-          example: "2025-09-20T14:30:00Z"
+          example: "2025-09-20T14:30:00"
         tipoAtendimento:
           $ref: '#/components/schemas/TipoAtendimento'
         status:
@@ -236,8 +231,7 @@ components:
       properties:
         timestamp:
           type: string
-          format: date-time
-          example: "2025-09-12T18:45:00Z"
+          example: "2025-09-12T18:45:00"
         status:
           type: integer
           example: 404

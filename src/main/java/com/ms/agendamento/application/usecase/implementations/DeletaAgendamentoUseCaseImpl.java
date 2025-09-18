@@ -16,7 +16,7 @@ public class DeletaAgendamentoUseCaseImpl implements DeletaAgendamentoUseCase {
     }
 
     @Override
-    public void deletaAgendamento(String idAgendamento) {
+    public void deletaAgendamento(Long idAgendamento) {
         //Verifica a existencia do agendamento antes de deletar
         AgendamentoDomain agendamento = this.agendamentoDomainService.findByIdAgendamento(idAgendamento);
         this.agendamento.deleta(agendamento);

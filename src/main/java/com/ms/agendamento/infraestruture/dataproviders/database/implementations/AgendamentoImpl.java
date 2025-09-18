@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class AgendamentoImpl implements Agendamento {
 
     private final AgendamentoRepository repository;
@@ -37,13 +37,13 @@ public class AgendamentoImpl implements Agendamento {
     }
 
     @Override
-    public Optional<AgendamentoDomain> buscarId(String id) {
+    public Optional<AgendamentoDomain> buscarId(Long id) {
         var entity = this.repository.findById(id);
         return Optional.of(AgendamentoEntityMapper.INSTANCE.toAgendamentoDomain(entity.get()));
     }
 
     @Override
-    public List<AgendamentoDomain> buscaAgendamento(String pacienteId, String medicoId, TipoAtendimento tipo, StatusAgendamento status) {
+    public List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status) {
         var agendamentos = this.repository.findByPacienteIdAndMedicoIdAndTipoAtendimentoAndStatus(pacienteId, medicoId, tipo, status);
         return agendamentos.stream()
                 .map(AgendamentoEntityMapper.INSTANCE::toAgendamentoDomain)
@@ -51,7 +51,7 @@ public class AgendamentoImpl implements Agendamento {
     }
 
     @Override
-    public Optional<AgendamentoDomain> buscarAgendamentoPorPacienteMedicoEData(String pacienteId, String medicoId, LocalDateTime dataAgendamento) {
+    public Optional<AgendamentoDomain> buscarAgendamentoPorPacienteMedicoEData(Long pacienteId, Long medicoId, LocalDateTime dataAgendamento) {
         var agendamento = this.repository.findByPacienteIdAndMedicoIdAndDataAgendamento(pacienteId, medicoId, dataAgendamento);
         return agendamento.map(AgendamentoEntityMapper.INSTANCE::toAgendamentoDomain);
     }

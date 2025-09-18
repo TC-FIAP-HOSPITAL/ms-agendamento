@@ -2,60 +2,60 @@ package com.ms.agendamento.infraestruture.dataproviders.database.entities;
 
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Document(collection = "agendamentos")
+@Entity
+@Table(name = "TB_AGENDAMENTO")
 public class AgendamentoEntity {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String pacienteId;
+    private Long pacienteId;
 
-    private String medicoId;
+    private Long medicoId;
 
     private LocalDateTime dataAgendamento;
 
+    @Enumerated(EnumType.STRING)
     private TipoAtendimento tipoAtendimento;
 
+    @Enumerated(EnumType.STRING)
     private StatusAgendamento status;
 
     private String observacoes;
 
-    @CreatedDate
+    @Column(nullable = false, updatable = false)
     private Date dataCriacao;
 
-    @LastModifiedDate
+    @Column(nullable = false, updatable = false)
     private Date dataAtualizacao;
 
-    // getters e setters
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getPacienteId() {
+    public Long getPacienteId() {
         return pacienteId;
     }
 
-    public void setPacienteId(String pacienteId) {
+    public void setPacienteId(Long pacienteId) {
         this.pacienteId = pacienteId;
     }
 
-    public String getMedicoId() {
+    public Long getMedicoId() {
         return medicoId;
     }
 
-    public void setMedicoId(String medicoId) {
+    public void setMedicoId(Long medicoId) {
         this.medicoId = medicoId;
     }
 

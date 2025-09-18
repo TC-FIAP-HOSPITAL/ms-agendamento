@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface BuscaAgendamentoUseCase {
 
-    List<AgendamentoDomain> buscaAgendamento(String pacienteId, String medicoId, TipoAtendimento tipo, StatusAgendamento status);
+    List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status);
 }

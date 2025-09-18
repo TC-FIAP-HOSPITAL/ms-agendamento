@@ -17,14 +17,14 @@ public class AgendamentoDomainServiceImpl implements AgendamentoDomainService {
     }
 
     @Override
-    public void checarExistenciaAgendamento(String pacienteId, String medicoId, LocalDateTime dataAgendamento) {
+    public void checarExistenciaAgendamento(Long pacienteId, Long medicoId, LocalDateTime dataAgendamento) {
         if(!this.agendamento.buscarAgendamentoPorPacienteMedicoEData(pacienteId, medicoId, dataAgendamento).isPresent()) {
             throw new AgendamentoExistenteException("Agendamento já existente");
         }
     }
 
     @Override
-    public AgendamentoDomain findByIdAgendamento(String idAgendamento){
+    public AgendamentoDomain findByIdAgendamento(Long idAgendamento){
         return this.agendamento.buscarId(idAgendamento)
                 .orElseThrow(() -> new AgendamentoNaoExisteException("Agendamento não encontrado"));
     }

@@ -4,13 +4,14 @@ import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 
 public class AgendamentoDomain {
 
-    private String id;
-    private String pacienteId;
-    private String medicoId;
+    private Long id;
+    private Long pacienteId;
+    private Long medicoId;
     private LocalDateTime dataAgendamento;
     private TipoAtendimento tipoAtendimento;
     private StatusAgendamento status;
@@ -18,27 +19,27 @@ public class AgendamentoDomain {
     private Date dataCriacao;
     private Date dataAtualizacao;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getPacienteId() {
+    public Long getPacienteId() {
         return pacienteId;
     }
 
-    public void setPacienteId(String pacienteId) {
+    public void setPacienteId(Long pacienteId) {
         this.pacienteId = pacienteId;
     }
 
-    public String getMedicoId() {
+    public Long getMedicoId() {
         return medicoId;
     }
 
-    public void setMedicoId(String medicoId) {
+    public void setMedicoId(Long medicoId) {
         this.medicoId = medicoId;
     }
 

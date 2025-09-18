@@ -9,15 +9,15 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring",
-        unmappedTargetPolicy = ReportingPolicy.ERROR)
+//@Mapper(componentModel = "spring",
+//        unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface AgendamentoDtoMapper {
 
-    AgendamentoDtoMapper INSTANCE = Mappers.getMapper(AgendamentoDtoMapper.class);
-
-    AgendamentoDomain toAgendamentoDomain(AgendamentoRequestDto domain);
-
-    AgendamentoDto toAgendamentoDto(AgendamentoDomain domain);
-
-    List<AgendamentoDto> toAgendamentoListDto(List<AgendamentoDomain> agendamentoList);
+//    AgendamentoDtoMapper INSTANCE = Mappers.getMapper(AgendamentoDtoMapper.class);
+//
+//    AgendamentoDomain toAgendamentoDomain(AgendamentoRequestDto domain);
+//
+//    AgendamentoDto toAgendamentoDto(AgendamentoDomain domain);
+//
+//    List<AgendamentoDto> toAgendamentoListDto(List<AgendamentoDomain> agendamentoList);
 }
