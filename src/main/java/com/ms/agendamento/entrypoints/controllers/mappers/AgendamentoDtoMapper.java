@@ -4,20 +4,23 @@ import com.ms.agendamento.domain.model.AgendamentoDomain;
 import com.ms.agendamentoDomain.gen.model.AgendamentoDto;
 import com.ms.agendamentoDomain.gen.model.AgendamentoRequestDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-//@Mapper(componentModel = "spring",
-//        unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(componentModel = "spring",
+        unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface AgendamentoDtoMapper {
 
-//    AgendamentoDtoMapper INSTANCE = Mappers.getMapper(AgendamentoDtoMapper.class);
-//
-//    AgendamentoDomain toAgendamentoDomain(AgendamentoRequestDto domain);
-//
-//    AgendamentoDto toAgendamentoDto(AgendamentoDomain domain);
-//
-//    List<AgendamentoDto> toAgendamentoListDto(List<AgendamentoDomain> agendamentoList);
+    AgendamentoDtoMapper INSTANCE = Mappers.getMapper(AgendamentoDtoMapper.class);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "dataCriacao", ignore = true)
+    AgendamentoDomain toAgendamentoDomain(AgendamentoRequestDto domain);
+
+    AgendamentoDto toAgendamentoDto(AgendamentoDomain domain);
+
+    List<AgendamentoDto> toAgendamentoListDto(List<AgendamentoDomain> agendamentoList);
 }

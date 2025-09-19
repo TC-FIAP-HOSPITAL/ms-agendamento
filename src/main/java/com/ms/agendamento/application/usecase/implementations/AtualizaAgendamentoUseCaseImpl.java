@@ -5,6 +5,8 @@ import com.ms.agendamento.application.usecase.AtualizaAgendamentoUseCase;
 import com.ms.agendamento.domain.domainService.AgendamentoDomainService;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
 
+import java.util.Objects;
+
 public class AtualizaAgendamentoUseCaseImpl implements AtualizaAgendamentoUseCase {
 
     private final Agendamento agendamento;
@@ -17,7 +19,12 @@ public class AtualizaAgendamentoUseCaseImpl implements AtualizaAgendamentoUseCas
 
     @Override
     public void atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain) {
-        AgendamentoDomain agendamento = this.agendamentoDomainService.findByIdAgendamento(id);
-        this.agendamento.salvar(agendamento);
+        AgendamentoDomain domain = this.agendamentoDomainService.findByIdAgendamento(id);
+
+        if(Objects.nonNull(domain)){
+            agendamentoDomain.setId(domain.getId());
+            agendamentoDomain.setDataCriacao(domain.getDataCriacao());
+        }
+        this.agendamento.salvar(agendamentoDomain);
     }
 }

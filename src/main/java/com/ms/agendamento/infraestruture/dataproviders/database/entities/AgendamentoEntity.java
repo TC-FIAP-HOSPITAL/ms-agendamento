@@ -4,7 +4,6 @@ import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -19,7 +18,7 @@ public class AgendamentoEntity {
 
     private Long medicoId;
 
-    private LocalDateTime dataAgendamento;
+    private String dataAgendamento;
 
     @Enumerated(EnumType.STRING)
     private TipoAtendimento tipoAtendimento;
@@ -31,9 +30,6 @@ public class AgendamentoEntity {
 
     @Column(nullable = false, updatable = false)
     private Date dataCriacao;
-
-    @Column(nullable = false, updatable = false)
-    private Date dataAtualizacao;
 
     public Long getId() {
         return id;
@@ -59,11 +55,11 @@ public class AgendamentoEntity {
         this.medicoId = medicoId;
     }
 
-    public LocalDateTime getDataAgendamento() {
+    public String getDataAgendamento() {
         return dataAgendamento;
     }
 
-    public void setDataAgendamento(LocalDateTime dataAgendamento) {
+    public void setDataAgendamento(String dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
 
@@ -97,13 +93,5 @@ public class AgendamentoEntity {
 
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public Date getDataAtualizacao() {
-        return dataAtualizacao;
-    }
-
-    public void setDataAtualizacao(Date dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
     }
 }

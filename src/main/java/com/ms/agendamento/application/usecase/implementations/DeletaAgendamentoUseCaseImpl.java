@@ -3,6 +3,7 @@ package com.ms.agendamento.application.usecase.implementations;
 import com.ms.agendamento.application.gateways.Agendamento;
 import com.ms.agendamento.application.usecase.DeletaAgendamentoUseCase;
 import com.ms.agendamento.domain.domainService.AgendamentoDomainService;
+import com.ms.agendamento.domain.domainService.exception.AgendamentoNaoExisteException;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
 
 public class DeletaAgendamentoUseCaseImpl implements DeletaAgendamentoUseCase {
@@ -19,6 +20,11 @@ public class DeletaAgendamentoUseCaseImpl implements DeletaAgendamentoUseCase {
     public void deletaAgendamento(Long idAgendamento) {
         //Verifica a existencia do agendamento antes de deletar
         AgendamentoDomain agendamento = this.agendamentoDomainService.findByIdAgendamento(idAgendamento);
+
+        if(agendamento == null){
+            throw new AgendamentoNaoExisteException("Agendamento não encontrado");
+        }
+
         this.agendamento.deleta(agendamento);
     }
 }

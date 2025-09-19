@@ -5,6 +5,8 @@ import com.ms.agendamento.application.usecase.InserirAgendamentoUseCase;
 import com.ms.agendamento.domain.domainService.AgendamentoDomainService;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
 
+import java.util.Date;
+
 public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase {
 
     private final Agendamento agendamento;
@@ -21,6 +23,9 @@ public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase 
                 agendamentoDomain.getPacienteId(),
                 agendamentoDomain.getMedicoId(),
                 agendamentoDomain.getDataAgendamento());
+
+        var domain = agendamentoDomain;
+        domain.setDataCriacao(new Date());
 
         this.agendamento.salvar(agendamentoDomain);
     }

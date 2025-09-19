@@ -19,7 +19,7 @@ public class BuscaAgendamentoUseCaseImpl implements BuscaAgendamentoUseCase {
     }
 
     @Override
-    public List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status) {
-        return this.agendamento.buscaAgendamento(pacienteId, medicoId, tipo, status);
+    public List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status, String dataAgendamento) {
+        return this.agendamento.buscaAgendamento(pacienteId, medicoId, tipo, status, dataAgendamento);
     }
 }

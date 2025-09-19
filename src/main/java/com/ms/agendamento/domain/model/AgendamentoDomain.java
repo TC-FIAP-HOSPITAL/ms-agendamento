@@ -3,8 +3,6 @@ package com.ms.agendamento.domain.model;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Date;
 
 public class AgendamentoDomain {
@@ -12,12 +10,11 @@ public class AgendamentoDomain {
     private Long id;
     private Long pacienteId;
     private Long medicoId;
-    private LocalDateTime dataAgendamento;
+    private String dataAgendamento;
     private TipoAtendimento tipoAtendimento;
     private StatusAgendamento status;
     private String observacoes;
     private Date dataCriacao;
-    private Date dataAtualizacao;
 
     public Long getId() {
         return id;
@@ -43,11 +40,11 @@ public class AgendamentoDomain {
         this.medicoId = medicoId;
     }
 
-    public LocalDateTime getDataAgendamento() {
+    public String getDataAgendamento() {
         return dataAgendamento;
     }
 
-    public void setDataAgendamento(LocalDateTime dataAgendamento) {
+    public void setDataAgendamento(String dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
 
@@ -81,13 +78,5 @@ public class AgendamentoDomain {
 
     public void setDataCriacao(Date dataCriacao) {
         this.dataCriacao = dataCriacao;
-    }
-
-    public Date getDataAtualizacao() {
-        return dataAtualizacao;
-    }
-
-    public void setDataAtualizacao(Date dataAtualizacao) {
-        this.dataAtualizacao = dataAtualizacao;
     }
 }

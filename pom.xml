@@ -211,6 +211,10 @@
 								<delegatePattern>true</delegatePattern>
 								<skipDefaultInterface>true</skipDefaultInterface>
 							</configOptions>
+
+							<typeMappings>
+								<typeMapping>date-time=java.time.LocalDateTime</typeMapping>
+							</typeMappings>
 						</configuration>
 					</execution>
 				</executions>

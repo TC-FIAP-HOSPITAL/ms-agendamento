@@ -61,7 +61,7 @@ paths:
           required: false
           schema:
             $ref: '#/components/schemas/TipoAtendimento'
-        - name: dataAgendamento # AJUSTADO AQUI
+        - name: dataAgendamento
           in: query
           required: false
           schema:
@@ -171,10 +171,6 @@ components:
       type: string
       example: "2025-09-12T10:00:00"
 
-    DataAtualizacao:
-      type: string
-      example: "2025-09-13T15:30:00"
-
     Agendamento:
       type: object
       properties:
@@ -195,8 +191,6 @@ components:
           $ref: '#/components/schemas/Observacoes'
         dataCriacao:
           $ref: '#/components/schemas/DataCriacao'
-        dataAtualizacao:
-          $ref: '#/components/schemas/DataAtualizacao'
       required:
         - pacienteId
         - medicoId
