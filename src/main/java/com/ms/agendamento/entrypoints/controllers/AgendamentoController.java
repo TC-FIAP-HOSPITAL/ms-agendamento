@@ -43,7 +43,7 @@ public class AgendamentoController implements AgendamentoApi {
     }
 
     @Override
-    public ResponseEntity<AgendamentoDto> _createAgendamento(AgendamentoRequestDto agendamentoRequestDto) {
+    public ResponseEntity<Void> _createAgendamento(AgendamentoRequestDto agendamentoRequestDto) {
         var domain = AgendamentoPresenter.toAgendamentoDomain(agendamentoRequestDto);
         inserirAgendamentoUseCase.inserirAgendamento(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();

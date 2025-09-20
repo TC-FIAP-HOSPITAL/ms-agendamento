@@ -24,10 +24,6 @@ paths:
       responses:
         '201':
           description: Criado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Agendamento'
         '400':
           description: Erro de validação
           content:
