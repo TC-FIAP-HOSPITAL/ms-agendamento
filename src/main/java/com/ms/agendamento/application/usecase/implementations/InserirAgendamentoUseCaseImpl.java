@@ -18,7 +18,7 @@ public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase 
     }
 
     @Override
-    public void inserirAgendamento(AgendamentoDomain agendamentoDomain) {
+    public AgendamentoDomain inserirAgendamento(AgendamentoDomain agendamentoDomain) {
         this.agendamentoDomainService.checarExistenciaAgendamento(
                 agendamentoDomain.getPacienteId(),
                 agendamentoDomain.getMedicoId(),
@@ -28,5 +28,6 @@ public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase 
         domain.setDataCriacao(new Date());
 
         this.agendamento.salvar(agendamentoDomain);
+        return domain;
     }
 }

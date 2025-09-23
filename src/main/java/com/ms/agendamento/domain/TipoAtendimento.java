@@ -5,4 +5,7 @@ public enum TipoAtendimento {
     EXAME,
     RETORNO,
     CIRURGIA
+
+
+
 }

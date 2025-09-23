@@ -1,8 +1,9 @@
 package com.ms.agendamento.entrypoints.controllers.mappers;
 
 import com.ms.agendamento.domain.model.AgendamentoDomain;
-import com.ms.agendamentoDomain.gen.model.AgendamentoDto;
-import com.ms.agendamentoDomain.gen.model.AgendamentoRequestDto;
+
+import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoDto;
+import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

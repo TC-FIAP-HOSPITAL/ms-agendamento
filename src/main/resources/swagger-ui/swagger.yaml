@@ -22,8 +22,12 @@ paths:
             schema:
               $ref: '#/components/schemas/AgendamentoRequest'
       responses:
-        '201':
-          description: Criado com sucesso
+        '200':
+          description: Agendamento criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agendamento'
         '400':
           description: Erro de validação
           content:
@@ -99,7 +103,7 @@ paths:
               $ref: '#/components/schemas/AgendamentoRequest'
       responses:
         '200':
-          description: Atualizado com sucesso
+          description: Agendamento atualizado com sucesso
           content:
             application/json:
               schema:
@@ -123,8 +127,13 @@ paths:
           schema:
             $ref: '#/components/schemas/Id'
       responses:
-        '204':
-          description: Removido com sucesso
+        '200':
+          description: Resultado da operação de delete
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
         '404':
           description: Agendamento não encontrado
           content:

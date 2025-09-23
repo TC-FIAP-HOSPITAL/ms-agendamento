@@ -4,5 +4,5 @@ import com.ms.agendamento.domain.model.AgendamentoDomain;
 
 public interface AtualizaAgendamentoUseCase {
 
-    void atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain);
+    AgendamentoDomain atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain);
 }

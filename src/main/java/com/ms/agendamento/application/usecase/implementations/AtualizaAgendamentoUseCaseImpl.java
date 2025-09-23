@@ -18,7 +18,7 @@ public class AtualizaAgendamentoUseCaseImpl implements AtualizaAgendamentoUseCas
     }
 
     @Override
-    public void atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain) {
+    public AgendamentoDomain atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain) {
         AgendamentoDomain domain = this.agendamentoDomainService.findByIdAgendamento(id);
 
         if(Objects.nonNull(domain)){
@@ -26,5 +26,6 @@ public class AtualizaAgendamentoUseCaseImpl implements AtualizaAgendamentoUseCas
             agendamentoDomain.setDataCriacao(domain.getDataCriacao());
         }
         this.agendamento.salvar(agendamentoDomain);
+        return agendamentoDomain;
     }
 }
