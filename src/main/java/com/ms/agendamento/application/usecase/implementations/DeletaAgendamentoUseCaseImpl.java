@@ -17,14 +17,13 @@ public class DeletaAgendamentoUseCaseImpl implements DeletaAgendamentoUseCase {
     }
 
     @Override
-    public void deletaAgendamento(Long idAgendamento) {
-        //Verifica a existencia do agendamento antes de deletar
+    public Boolean deletaAgendamento(Long idAgendamento) {
         AgendamentoDomain agendamento = this.agendamentoDomainService.findByIdAgendamento(idAgendamento);
 
         if(agendamento == null){
             throw new AgendamentoNaoExisteException("Agendamento não encontrado");
         }
-
         this.agendamento.deleta(agendamento);
+        return true;
     }
 }

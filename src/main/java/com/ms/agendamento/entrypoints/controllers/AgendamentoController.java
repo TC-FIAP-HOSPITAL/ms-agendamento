@@ -7,25 +7,25 @@ import com.ms.agendamento.application.usecase.InserirAgendamentoUseCase;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
+import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoDto;
+import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoFilter;
+import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoRequestDto;
 import com.ms.agendamento.entrypoints.controllers.presenter.AgendamentoPresenter;
-import com.ms.agendamentoDomain.AgendamentoApi;
-import com.ms.agendamentoDomain.gen.model.AgendamentoDto;
-import com.ms.agendamentoDomain.gen.model.AgendamentoRequestDto;
-import com.ms.agendamentoDomain.gen.model.StatusDto;
-import com.ms.agendamentoDomain.gen.model.TipoAtendimentoDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequestMapping("/agendamento")
-public class AgendamentoController implements AgendamentoApi {
+public class AgendamentoController {
 
     private final InserirAgendamentoUseCase inserirAgendamentoUseCase;
     private final AtualizaAgendamentoUseCase atualizaAgendamentoUseCase;
@@ -42,39 +42,44 @@ public class AgendamentoController implements AgendamentoApi {
         this.buscaAgendamentoUseCase = buscaAgendamentoUseCase;
     }
 
-    @Override
-    public ResponseEntity<Void> _createAgendamento(AgendamentoRequestDto agendamentoRequestDto) {
-        var domain = AgendamentoPresenter.toAgendamentoDomain(agendamentoRequestDto);
-        inserirAgendamentoUseCase.inserirAgendamento(domain);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+
+    //TODO: No graphql o nome do parametro deve ser request, se não ele não entende que é um request
+
+    @MutationMapping
+    public AgendamentoDto createAgendamento(@Argument AgendamentoRequestDto request) {
+        var domain = AgendamentoPresenter.toAgendamentoDomain(request);
+        AgendamentoDomain salvo = inserirAgendamentoUseCase.inserirAgendamento(domain);
+        return AgendamentoPresenter.toAgendamentoDto(salvo);
     }
 
-    @Override
-    public ResponseEntity<Void> _deleteAgendamento(Long id) {
-        deletaAgendamentoUseCase.deletaAgendamento(id);
-        return ResponseEntity.noContent().build();
+    @MutationMapping
+    public Boolean deleteAgendamento(@Argument Long id) {
+        return deletaAgendamentoUseCase.deletaAgendamento(id);
     }
 
-    @Override
-    public ResponseEntity<List<AgendamentoDto>> _findAgendamentos(Long pacienteId, Long medicoId, StatusDto status, TipoAtendimentoDto tipoAtendimento, String dataAgendamento) {
+    @QueryMapping
+    public List<AgendamentoDto> findAgendamento(@Argument AgendamentoFilter filter) {
 
-        TipoAtendimento tipo = Optional.ofNullable(tipoAtendimento)
+        filter = Optional.ofNullable(filter).orElse(new AgendamentoFilter());
+
+        TipoAtendimento tipo = Optional.ofNullable(filter.getTipoAtendimento())
                 .map(t -> TipoAtendimento.valueOf(t.name()))
                 .orElse(null);
 
-        StatusAgendamento st = Optional.ofNullable(status)
+        StatusAgendamento st = Optional.ofNullable(filter.getStatus())
                 .map(s -> StatusAgendamento.valueOf(s.name()))
                 .orElse(null);
 
-        List<AgendamentoDomain> domain = buscaAgendamentoUseCase.buscaAgendamento(pacienteId, medicoId, tipo, st, dataAgendamento);
-        List<AgendamentoDto> dtos = AgendamentoPresenter.toAgendamentoListDto(domain);
-        return ResponseEntity.ok(dtos);
+        List<AgendamentoDomain> domain = buscaAgendamentoUseCase.buscaAgendamento(filter.getPacienteId(),
+                filter.getMedicoId(), tipo, st, filter.getDataAgendamento());
+
+        return AgendamentoPresenter.toAgendamentoListDto(domain);
     }
 
-    @Override
-    public ResponseEntity<AgendamentoDto> _updateAgendamento(Long id, AgendamentoRequestDto agendamentoRequestDto) {
-        var domain = AgendamentoPresenter.toAgendamentoDomain(agendamentoRequestDto);
-        atualizaAgendamentoUseCase.atualizarAgendamento(id, domain);
-        return ResponseEntity.noContent().build();
+    @MutationMapping
+    public AgendamentoDto updateAgendamento(@Argument Long id, @Argument AgendamentoRequestDto request) {
+        var domain = AgendamentoPresenter.toAgendamentoDomain(request);
+        AgendamentoDomain atualizado = atualizaAgendamentoUseCase.atualizarAgendamento(id, domain);
+        return AgendamentoPresenter.toAgendamentoDto(atualizado);
     }
 }

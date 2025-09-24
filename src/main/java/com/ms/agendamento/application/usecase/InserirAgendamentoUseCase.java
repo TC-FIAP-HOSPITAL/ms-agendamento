@@ -4,5 +4,5 @@ import com.ms.agendamento.domain.model.AgendamentoDomain;
 
 public interface InserirAgendamentoUseCase {
 
-    void inserirAgendamento(AgendamentoDomain agendamentoDomain);
+    AgendamentoDomain inserirAgendamento(AgendamentoDomain agendamentoDomain);
 }

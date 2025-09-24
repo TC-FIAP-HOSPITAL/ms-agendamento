@@ -1,0 +1,53 @@
+type Agendamento{
+    id: ID,
+    pacienteId: ID,
+    medicoId: ID,
+    dataAgendamento: String,
+    tipoAtendimento: TipoAtendimento,
+    status: Status,
+    observacoes: String,
+    dataCriacao: String
+}
+
+input AgendamentoRequest{
+    pacienteId: ID!,
+    medicoId: ID!,
+    dataAgendamento: String!,
+    tipoAtendimento: TipoAtendimento!,
+    status: Status!,
+    observacoes: String
+}
+
+input AgendamentoFilter {
+    pacienteId: ID
+    medicoId: ID
+    status: Status
+    tipoAtendimento: TipoAtendimento
+    dataAgendamento: String
+}
+
+enum TipoAtendimento{
+    CONSULTA,
+    EXAME,
+    RETORNO,
+    CIRURGIA
+}
+
+enum Status{
+    AGENDADO,
+    CONFIRMADO,
+    CANCELADO,
+    REALIZADO,
+    REAGENDADO,
+    NAO_COMPARECEU
+}
+
+type Query {
+    findAgendamento(filter: AgendamentoFilter): [Agendamento]
+}
+
+type Mutation{
+    createAgendamento(request: AgendamentoRequest!): Agendamento
+    updateAgendamento(id: ID!, request: AgendamentoRequest!): Agendamento
+    deleteAgendamento(id: ID!): Boolean
+}
