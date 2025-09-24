@@ -1,15 +1,12 @@
 package com.ms.agendamento.entrypoints.controllers.dtos;
 
-import com.ms.agendamentoDomain.gen.model.StatusDto;
-import com.ms.agendamentoDomain.gen.model.TipoAtendimentoDto;
-
 public class AgendamentoRequestDto {
 
     private Long pacienteId;
     private Long medicoId;
     private String dataAgendamento;
     private TipoAtendimentoDto tipoAtendimento;
-    private StatusDto status;
+    private StatusAtendimentoDto status;
     private String observacoes;
 
     public Long getPacienteId() {
@@ -44,11 +41,11 @@ public class AgendamentoRequestDto {
         this.tipoAtendimento = tipoAtendimento;
     }
 
-    public StatusDto getStatus() {
+    public StatusAtendimentoDto getStatus() {
         return status;
     }
 
-    public void setStatus(StatusDto status) {
+    public void setStatus(StatusAtendimentoDto status) {
         this.status = status;
     }
 

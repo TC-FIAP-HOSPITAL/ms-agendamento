@@ -1,24 +1,12 @@
 package com.ms.agendamento.entrypoints.controllers.dtos;
 
+public class AgendamentoFilter {
 
-public class AgendamentoDto {
-
-    private Long id;
     private Long pacienteId;
     private Long medicoId;
     private String dataAgendamento;
     private TipoAtendimentoDto tipoAtendimento;
     private StatusAtendimentoDto status;
-    private String observacoes;
-    private String dataCriacao;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getPacienteId() {
         return pacienteId;
@@ -58,21 +46,5 @@ public class AgendamentoDto {
 
     public void setStatus(StatusAtendimentoDto status) {
         this.status = status;
-    }
-
-    public String getObservacoes() {
-        return observacoes;
-    }
-
-    public void setObservacoes(String observacoes) {
-        this.observacoes = observacoes;
-    }
-
-    public String getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(String dataCriacao) {
-        this.dataCriacao = dataCriacao;
     }
 }

@@ -6,7 +6,7 @@ type Agendamento{
     tipoAtendimento: TipoAtendimento,
     status: Status,
     observacoes: String,
-    dataCriacao: String!
+    dataCriacao: String
 }
 
 input AgendamentoRequest{
@@ -16,6 +16,14 @@ input AgendamentoRequest{
     tipoAtendimento: TipoAtendimento!,
     status: Status!,
     observacoes: String
+}
+
+input AgendamentoFilter {
+    pacienteId: ID
+    medicoId: ID
+    status: Status
+    tipoAtendimento: TipoAtendimento
+    dataAgendamento: String
 }
 
 enum TipoAtendimento{
@@ -35,13 +43,7 @@ enum Status{
 }
 
 type Query {
-    findAgendamento(
-        pacienteId: ID
-        medicoId: ID
-        status: Status
-        tipoAtendimento: TipoAtendimento
-        dataAgendamento: String
-    ): [Agendamento!]!
+    findAgendamento(filter: AgendamentoFilter): [Agendamento]
 }
 
 type Mutation{
