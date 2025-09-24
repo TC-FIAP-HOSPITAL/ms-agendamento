@@ -1,3 +1,6 @@
+"""
+Representa um agendamento de um paciente
+"""
 type Agendamento{
     id: ID,
     pacienteId: ID,
@@ -9,6 +12,9 @@ type Agendamento{
     dataCriacao: String
 }
 
+"""
+Dados necessários para criar ou atualizar um agendamento
+"""
 input AgendamentoRequest{
     pacienteId: ID!,
     medicoId: ID!,
@@ -18,6 +24,9 @@ input AgendamentoRequest{
     observacoes: String
 }
 
+"""
+Filtro para buscar agendamentos
+"""
 input AgendamentoFilter {
     pacienteId: ID
     medicoId: ID
@@ -26,6 +35,9 @@ input AgendamentoFilter {
     dataAgendamento: String
 }
 
+"""
+Tipos de atendimento possíveis
+"""
 enum TipoAtendimento{
     CONSULTA,
     EXAME,
@@ -33,6 +45,9 @@ enum TipoAtendimento{
     CIRURGIA
 }
 
+"""
+Status possíveis de um agendamento
+"""
 enum Status{
     AGENDADO,
     CONFIRMADO,
@@ -42,10 +57,17 @@ enum Status{
     NAO_COMPARECEU
 }
 
+
+"""
+Consultas disponíveis para agendamentos
+"""
 type Query {
     findAgendamento(filter: AgendamentoFilter): [Agendamento]
 }
 
+"""
+Mutations disponíveis para agendamentos
+"""
 type Mutation{
     createAgendamento(request: AgendamentoRequest!): Agendamento
     updateAgendamento(id: ID!, request: AgendamentoRequest!): Agendamento
