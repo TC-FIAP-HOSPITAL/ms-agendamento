@@ -5,7 +5,6 @@ import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoDto;
 import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoRequestDto;
 import com.ms.agendamento.entrypoints.controllers.mappers.AgendamentoDtoMapper;
 
-
 import java.util.List;
 
 public class AgendamentoPresenter {
