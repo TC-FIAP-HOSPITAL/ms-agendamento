@@ -107,11 +107,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-graphql</artifactId>
@@ -143,13 +138,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
-
-<!--		<dependency>-->
-<!--			<groupId>com.squareup.okhttp3</groupId>-->
-<!--			<artifactId>mockwebserver</artifactId>-->
-<!--			<version>${com.squareup.okhttp3.version}</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
