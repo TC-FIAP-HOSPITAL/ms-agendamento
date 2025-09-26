@@ -107,11 +107,6 @@
 			<scope>runtime</scope>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-mongodb</artifactId>-->
-<!--		</dependency>-->
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-graphql</artifactId>
@@ -143,13 +138,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
-
-<!--		<dependency>-->
-<!--			<groupId>com.squareup.okhttp3</groupId>-->
-<!--			<artifactId>mockwebserver</artifactId>-->
-<!--			<version>${com.squareup.okhttp3.version}</version>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -197,44 +185,44 @@
 			</plugin>
 
 
-			<plugin>
-				<groupId>org.openapitools</groupId>
-				<artifactId>openapi-generator-maven-plugin</artifactId>
-				<version>${openapi.generator.version}</version>
-				<executions>
-					<execution>
-						<id>generate-api</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>generate</goal>
-						</goals>
-						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/swagger-ui/swagger.yaml</inputSpec>
-							<generatorName>spring</generatorName>
-							<output>${project.build.directory}/generated-sources/swagger</output>
-							<apiPackage>com.ms.agendamentoDomain</apiPackage>
-							<generateApiTests>false</generateApiTests>
-							<generateModelTests>false</generateModelTests>
-							<modelNameSuffix>Dto</modelNameSuffix>
-							<configOptions>
-								<useSpringBoot3>true</useSpringBoot3>
-								<interfaceOnly>true</interfaceOnly>
-								<useTags>true</useTags>
-								<dateLibrary>java8</dateLibrary>
-								<basePackage>com.ms.agendamentoDomain.gen</basePackage>
-								<modelPackage>com.ms.agendamentoDomain.gen.model</modelPackage>
-								<configPackage>com.ms.agendamentoDomain.gen.config</configPackage>
-								<delegatePattern>true</delegatePattern>
-								<skipDefaultInterface>true</skipDefaultInterface>
-							</configOptions>
+<!--			<plugin>-->
+<!--				<groupId>org.openapitools</groupId>-->
+<!--				<artifactId>openapi-generator-maven-plugin</artifactId>-->
+<!--				<version>${openapi.generator.version}</version>-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<id>generate-api</id>-->
+<!--						<phase>generate-sources</phase>-->
+<!--						<goals>-->
+<!--							<goal>generate</goal>-->
+<!--						</goals>-->
+<!--						<configuration>-->
+<!--							<inputSpec>${project.basedir}/src/main/resources/swagger-ui/swagger.yaml</inputSpec>-->
+<!--							<generatorName>spring</generatorName>-->
+<!--							<output>${project.build.directory}/generated-sources/swagger</output>-->
+<!--							<apiPackage>com.ms.agendamentoDomain</apiPackage>-->
+<!--							<generateApiTests>false</generateApiTests>-->
+<!--							<generateModelTests>false</generateModelTests>-->
+<!--							<modelNameSuffix>Dto</modelNameSuffix>-->
+<!--							<configOptions>-->
+<!--								<useSpringBoot3>true</useSpringBoot3>-->
+<!--								<interfaceOnly>true</interfaceOnly>-->
+<!--								<useTags>true</useTags>-->
+<!--								<dateLibrary>java8</dateLibrary>-->
+<!--								<basePackage>com.ms.agendamentoDomain.gen</basePackage>-->
+<!--								<modelPackage>com.ms.agendamentoDomain.gen.model</modelPackage>-->
+<!--								<configPackage>com.ms.agendamentoDomain.gen.config</configPackage>-->
+<!--								<delegatePattern>true</delegatePattern>-->
+<!--								<skipDefaultInterface>true</skipDefaultInterface>-->
+<!--							</configOptions>-->
 
-							<typeMappings>
-								<typeMapping>date-time=java.time.LocalDateTime</typeMapping>
-							</typeMappings>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!--							<typeMappings>-->
+<!--								<typeMapping>date-time=java.time.LocalDateTime</typeMapping>-->
+<!--							</typeMappings>-->
+<!--						</configuration>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
 
 			<plugin>
 				<groupId>org.jacoco</groupId>

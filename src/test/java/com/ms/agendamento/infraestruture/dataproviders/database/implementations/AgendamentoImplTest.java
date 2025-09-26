@@ -1,12 +1,9 @@
 package com.ms.agendamento.infraestruture.dataproviders.database.implementations;
 
-import com.ms.agendamento.domain.StatusAgendamento;
-import com.ms.agendamento.domain.TipoAtendimento;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
 import com.ms.agendamento.infraestruture.dataproviders.database.entities.AgendamentoEntity;
 import com.ms.agendamento.infraestruture.dataproviders.database.repositories.AgendamentoRepository;
 import com.ms.agendamento.mocks.AgendamentoMock;
-import com.ms.agendamentoDomain.gen.model.AgendamentoRequestDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

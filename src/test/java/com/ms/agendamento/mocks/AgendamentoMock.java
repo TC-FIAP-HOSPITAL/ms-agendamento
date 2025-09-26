@@ -3,10 +3,11 @@ package com.ms.agendamento.mocks;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
+import com.ms.agendamento.entrypoints.controllers.dtos.AgendamentoRequestDto;
+import com.ms.agendamento.entrypoints.controllers.dtos.StatusAtendimentoDto;
+import com.ms.agendamento.entrypoints.controllers.dtos.TipoAtendimentoDto;
 import com.ms.agendamento.infraestruture.dataproviders.database.entities.AgendamentoEntity;
-import com.ms.agendamentoDomain.gen.model.AgendamentoRequestDto;
-import com.ms.agendamentoDomain.gen.model.StatusDto;
-import com.ms.agendamentoDomain.gen.model.TipoAtendimentoDto;
+
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ public class AgendamentoMock {
         agendamentoRequestDto.setMedicoId(1L);
         agendamentoRequestDto.setDataAgendamento("2025-09-19");
         agendamentoRequestDto.setTipoAtendimento(TipoAtendimentoDto.CONSULTA);
-        agendamentoRequestDto.setStatus(StatusDto.AGENDADO);
+        agendamentoRequestDto.setStatus(StatusAtendimentoDto.AGENDADO);
         agendamentoRequestDto.setObservacoes("Paciente necessita traver a receita anterior para a proxima consulta");
         return agendamentoRequestDto;
     }

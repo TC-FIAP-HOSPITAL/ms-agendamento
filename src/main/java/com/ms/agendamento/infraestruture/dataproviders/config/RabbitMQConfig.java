@@ -15,14 +15,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String QUEUE_NAME = "agendamento-queue";
     public static final String EXCHANGE_NAME = "agendamento-exchange";
     public static final String ROUTING_KEY = "agendamento-routing-key";
 
-    @Bean
-    public Queue queue() {
-        return new Queue(QUEUE_NAME, true);
-    }
+    public static final String NOTIFICACAO_QUEUE_NAME = "notificacao-queue";
+    public static final String HISTORICO_QUEUE_NAME = "historico-queue";
+
 
     @Bean
     public DirectExchange exchange() {
@@ -30,8 +28,23 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding binding(Queue queue, DirectExchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+    public Queue notificacaoQueue() {
+        return new Queue(NOTIFICACAO_QUEUE_NAME, true);
+    }
+
+    @Bean
+    public Queue historicoQueue() {
+        return new Queue(HISTORICO_QUEUE_NAME, true);
+    }
+
+    @Bean
+    public Binding notificacaoBinding(Queue notificacaoQueue, DirectExchange exchange) {
+        return BindingBuilder.bind(notificacaoQueue).to(exchange).with(ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding historicoBinding(Queue historicoQueue, DirectExchange exchange) {
+        return BindingBuilder.bind(historicoQueue).to(exchange).with(ROUTING_KEY);
     }
 
     @Bean

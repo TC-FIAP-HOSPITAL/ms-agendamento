@@ -1,6 +1,7 @@
 package com.ms.agendamento.infraestruture.dataproviders.database.implementations;
 
 import com.ms.agendamento.application.gateways.MessagePublisher;
+import com.ms.agendamento.infraestruture.dataproviders.config.RabbitMQConfig;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 
@@ -16,8 +17,8 @@ public class RabbitMQMessagePublisher implements MessagePublisher {
     @Override
     public void publish(Object message) {
         amqpTemplate.convertAndSend(
-                "agendamento-exchange",
-                "agendamento-routingKey",
+                RabbitMQConfig.EXCHANGE_NAME,
+                RabbitMQConfig.ROUTING_KEY,
                 message
         );
     }

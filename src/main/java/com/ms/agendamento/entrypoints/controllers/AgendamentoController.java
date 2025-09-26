@@ -19,12 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
 @Controller
-@RequestMapping("/agendamento")
+@RequestMapping("/v1")
 public class AgendamentoController {
 
     private final InserirAgendamentoUseCase inserirAgendamentoUseCase;

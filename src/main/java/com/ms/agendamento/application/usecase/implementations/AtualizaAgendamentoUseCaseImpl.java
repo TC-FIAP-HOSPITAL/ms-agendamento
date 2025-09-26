@@ -22,20 +22,20 @@ public class AtualizaAgendamentoUseCaseImpl implements AtualizaAgendamentoUseCas
         this.agendamentoDomainService = agendamentoDomainService;
     }
 
-    @Override
-    public AgendamentoDomain atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain) {
-        AgendamentoDomain domain = this.agendamentoDomainService.findByIdAgendamento(id);
+        @Override
+        public AgendamentoDomain atualizarAgendamento(Long id, AgendamentoDomain agendamentoDomain) {
+            AgendamentoDomain domain = this.agendamentoDomainService.findByIdAgendamento(id);
 
-        if(Objects.nonNull(domain)){
-            agendamentoDomain.setId(domain.getId());
-            agendamentoDomain.setDataCriacao(domain.getDataCriacao());
-        } else {
-            throw new RuntimeException("Agendamento não encontrado");
+            if(Objects.nonNull(domain)){
+                agendamentoDomain.setId(domain.getId());
+                agendamentoDomain.setDataCriacao(domain.getDataCriacao());
+            } else {
+                throw new RuntimeException("Agendamento não encontrado");
+            }
+
+            this.agendamento.salvar(agendamentoDomain);
+            messagePublisher.publish(agendamentoDomain);
+
+            return agendamentoDomain;
         }
-
-        this.agendamento.salvar(agendamentoDomain);
-        messagePublisher.publish(agendamentoDomain);
-
-        return agendamentoDomain;
-    }
 }
