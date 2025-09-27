@@ -7,6 +7,8 @@ import com.ms.agendamento.domain.domainService.exception.AgendamentoNaoExisteExc
 import com.ms.agendamento.domain.model.AgendamentoDomain;
 import org.springframework.stereotype.Service;
 
+import java.time.OffsetDateTime;
+
 @Service
 public class AgendamentoDomainServiceImpl implements AgendamentoDomainService {
 
@@ -17,7 +19,7 @@ public class AgendamentoDomainServiceImpl implements AgendamentoDomainService {
     }
 
     @Override
-    public void checarExistenciaAgendamento(Long pacienteId, Long medicoId, String dataAgendamento) {
+    public void checarExistenciaAgendamento(Long pacienteId, Long medicoId, OffsetDateTime dataAgendamento) {
         if(this.agendamento.buscarAgendamentoPorPacienteMedicoEData(pacienteId, medicoId, dataAgendamento).isPresent()) {
             throw new AgendamentoExistenteException("Agendamento já existente");
         }

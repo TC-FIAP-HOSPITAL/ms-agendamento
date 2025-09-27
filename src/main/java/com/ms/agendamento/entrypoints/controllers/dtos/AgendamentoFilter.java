@@ -1,50 +1,36 @@
 package com.ms.agendamento.entrypoints.controllers.dtos;
 
-public class AgendamentoFilter {
+import com.ms.agendamento.domain.Especialidade;
+import com.ms.agendamento.domain.StatusAgendamento;
+import com.ms.agendamento.domain.TipoAtendimento;
 
-    private Long pacienteId;
-    private Long medicoId;
-    private String dataAgendamento;
-    private TipoAtendimentoDto tipoAtendimento;
-    private StatusAtendimentoDto status;
+import java.time.OffsetDateTime;
 
-    public Long getPacienteId() {
-        return pacienteId;
+public record AgendamentoFilter (
+     Long pacienteId,
+     Long medicoId,
+     StatusAtendimentoDto status,
+     EspecialidadeDto especialidade,
+     TipoAtendimentoDto tipoAtendimento,
+     String dataAgendamento
+){
+    public static AgendamentoFilter vazio() {
+        return new AgendamentoFilter(null, null, null, null, null, null);
     }
 
-    public void setPacienteId(Long pacienteId) {
-        this.pacienteId = pacienteId;
+    public TipoAtendimento tipoAtendimentoDomain() {
+        return tipoAtendimento == null ? null : TipoAtendimento.valueOf(tipoAtendimento.name());
     }
 
-    public Long getMedicoId() {
-        return medicoId;
+    public StatusAgendamento statusDomain() {
+        return status == null ? null : StatusAgendamento.valueOf(status.name());
     }
 
-    public void setMedicoId(Long medicoId) {
-        this.medicoId = medicoId;
+    public Especialidade especialidadeDomain() {
+        return especialidade == null ? null : Especialidade.valueOf(especialidade.name());
     }
 
-    public String getDataAgendamento() {
-        return dataAgendamento;
-    }
-
-    public void setDataAgendamento(String dataAgendamento) {
-        this.dataAgendamento = dataAgendamento;
-    }
-
-    public TipoAtendimentoDto getTipoAtendimento() {
-        return tipoAtendimento;
-    }
-
-    public void setTipoAtendimento(TipoAtendimentoDto tipoAtendimento) {
-        this.tipoAtendimento = tipoAtendimento;
-    }
-
-    public StatusAtendimentoDto getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusAtendimentoDto status) {
-        this.status = status;
+    public OffsetDateTime dataAgendamentoDomain() {
+        return dataAgendamento == null ? null : OffsetDateTime.parse(dataAgendamento + "T00:00:00Z");
     }
 }

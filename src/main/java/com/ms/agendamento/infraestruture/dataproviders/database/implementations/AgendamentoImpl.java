@@ -1,6 +1,7 @@
 package com.ms.agendamento.infraestruture.dataproviders.database.implementations;
 
 import com.ms.agendamento.application.gateways.Agendamento;
+import com.ms.agendamento.domain.Especialidade;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
@@ -9,6 +10,7 @@ import com.ms.agendamento.infraestruture.dataproviders.database.repositories.Age
 import com.ms.agendamento.infraestruture.dataproviders.database.specification.AgendamentoSpecification;
 import org.springframework.stereotype.Component;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,8 +43,8 @@ public class AgendamentoImpl implements Agendamento {
     }
 
     @Override
-    public List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status, String dataAgendamento) {
-        var spec = AgendamentoSpecification.filtrar(pacienteId, medicoId, tipo, status, dataAgendamento);
+    public List<AgendamentoDomain> buscaAgendamento(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status, Especialidade especialidade, OffsetDateTime dataAgendamento) {
+        var spec = AgendamentoSpecification.filtrar(pacienteId, medicoId, tipo, status, especialidade, dataAgendamento);
         return repository.findAll(spec)
                 .stream()
                 .map(AgendamentoEntityMapper.INSTANCE::toAgendamentoDomain)
@@ -50,7 +52,7 @@ public class AgendamentoImpl implements Agendamento {
     }
 
     @Override
-    public Optional<AgendamentoDomain> buscarAgendamentoPorPacienteMedicoEData(Long pacienteId, Long medicoId, String dataAgendamento) {
+    public Optional<AgendamentoDomain> buscarAgendamentoPorPacienteMedicoEData(Long pacienteId, Long medicoId, OffsetDateTime dataAgendamento) {
         var agendamento = this.repository.findByPacienteIdAndMedicoIdAndDataAgendamento(pacienteId, medicoId, dataAgendamento);
         return agendamento.map(AgendamentoEntityMapper.INSTANCE::toAgendamentoDomain);
     }

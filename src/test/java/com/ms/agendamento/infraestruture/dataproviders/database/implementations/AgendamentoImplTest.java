@@ -64,7 +64,7 @@ class AgendamentoImplTest {
         List<AgendamentoEntity> entities = List.of(AgendamentoMock.getAgendamentoEntity());
         when(agendamentoRepository.findAll(any(Specification.class))).thenReturn(entities);
 
-        agendamento.buscaAgendamento(null, null, null, null, null);
+        agendamento.buscaAgendamento(null, null, null, null, null, null);
         verify(agendamentoRepository, times(1)).findAll(any(Specification.class));
     }
 

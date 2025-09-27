@@ -1,8 +1,10 @@
 package com.ms.agendamento.domain.model;
 
+import com.ms.agendamento.domain.Especialidade;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 public class AgendamentoDomain {
@@ -10,9 +12,11 @@ public class AgendamentoDomain {
     private Long id;
     private Long pacienteId;
     private Long medicoId;
-    private String dataAgendamento;
+    private OffsetDateTime dataAgendamento;
     private TipoAtendimento tipoAtendimento;
     private StatusAgendamento status;
+    private Especialidade especialidade;
+    private String motivo;
     private String observacoes;
     private Date dataCriacao;
 
@@ -40,11 +44,11 @@ public class AgendamentoDomain {
         this.medicoId = medicoId;
     }
 
-    public String getDataAgendamento() {
+    public OffsetDateTime getDataAgendamento() {
         return dataAgendamento;
     }
 
-    public void setDataAgendamento(String dataAgendamento) {
+    public void setDataAgendamento(OffsetDateTime dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
 
@@ -62,6 +66,22 @@ public class AgendamentoDomain {
 
     public void setStatus(StatusAgendamento status) {
         this.status = status;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public String getObservacoes() {

@@ -8,6 +8,8 @@ type Agendamento{
     dataAgendamento: String,
     tipoAtendimento: TipoAtendimento,
     status: Status,
+    especialidade: Especialidade,
+    motivo: String,
     observacoes: String,
     dataCriacao: String
 }
@@ -20,7 +22,9 @@ input AgendamentoRequest{
     medicoId: ID!,
     dataAgendamento: String!,
     tipoAtendimento: TipoAtendimento!,
+    especialidade: Especialidade!,
     status: Status!,
+    motivo: String,
     observacoes: String
 }
 
@@ -31,6 +35,7 @@ input AgendamentoFilter {
     pacienteId: ID
     medicoId: ID
     status: Status
+    especialidade: Especialidade,
     tipoAtendimento: TipoAtendimento
     dataAgendamento: String
 }
@@ -43,6 +48,31 @@ enum TipoAtendimento{
     EXAME,
     RETORNO,
     CIRURGIA
+}
+
+"""
+Tipos de especialidade possíveis
+"""
+enum Especialidade{
+    CARDIOLOGIA,
+    DERMATOLOGIA,
+    ENDOCRINOLOGIA,
+    GASTROENTEROLOGIA,
+    GERIATRIA,
+    GINECOLOGIA,
+    HEMATOLOGIA,
+    INFECTOLOGIA,
+    NEFROLOGIA,
+    NEUROLOGIA,
+    OBSTETRICIA,
+    OFTALMOLOGIA,
+    ONCOLOGIA,
+    ORTOPEDIA,
+    OTORRINOLARINGOLOGIA,
+    PEDIATRIA,
+    PSIQUIATRIA,
+    REUMATOLOGIA,
+    UROLOGIA
 }
 
 """
