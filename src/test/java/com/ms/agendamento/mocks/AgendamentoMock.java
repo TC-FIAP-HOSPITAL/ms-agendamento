@@ -33,7 +33,7 @@ public class AgendamentoMock {
         AgendamentoRequestDto agendamentoRequestDto = new AgendamentoRequestDto(
                 1L,
                 1L,
-                "2025-09-19",
+                "2025-09-20T00:00:00Z",
                 TipoAtendimentoDto.CONSULTA,
                 EspecialidadeDto.CARDIOLOGIA,
                 StatusAtendimentoDto.AGENDADO,
