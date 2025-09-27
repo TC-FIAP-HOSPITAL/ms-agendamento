@@ -16,7 +16,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,19 +31,19 @@ class AgendamentoDomainServiceImplTest {
     void checarExistenciaAgendamento_existente(){
         AgendamentoDomain domain = AgendamentoMock.getAgendamentoDomain();
 
-        when(agendamento.buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), anyString())).thenReturn(Optional.of(domain));
+        when(agendamento.buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), any())).thenReturn(Optional.of(domain));
 
-        assertThrows(AgendamentoExistenteException.class, () -> agendamentoDomainService.checarExistenciaAgendamento(anyLong(), anyLong(), anyString()));
-        verify(agendamento).buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), anyString());
+        assertThrows(AgendamentoExistenteException.class, () -> agendamentoDomainService.checarExistenciaAgendamento(anyLong(), anyLong(), any()));
+        verify(agendamento).buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), any());
     }
 
     @Test
     void checarExistenciaAgendamento_naoExistente(){
-        when(agendamento.buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), anyString())).thenReturn(Optional.empty());
+        when(agendamento.buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), any())).thenReturn(Optional.empty());
 
-        agendamentoDomainService.checarExistenciaAgendamento(anyLong(), anyLong(), anyString());
+        agendamentoDomainService.checarExistenciaAgendamento(anyLong(), anyLong(), any());
 
-        verify(agendamento).buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), anyString());
+        verify(agendamento).buscarAgendamentoPorPacienteMedicoEData(anyLong(), anyLong(), any());
     }
 
     @Test

@@ -1,9 +1,11 @@
 package com.ms.agendamento.infraestruture.dataproviders.database.entities;
 
+import com.ms.agendamento.domain.Especialidade;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import jakarta.persistence.*;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 
 @Entity
@@ -18,13 +20,18 @@ public class AgendamentoEntity {
 
     private Long medicoId;
 
-    private String dataAgendamento;
+    private OffsetDateTime dataAgendamento;
 
     @Enumerated(EnumType.STRING)
     private TipoAtendimento tipoAtendimento;
 
     @Enumerated(EnumType.STRING)
     private StatusAgendamento status;
+
+    @Enumerated(EnumType.STRING)
+    private Especialidade especialidade;
+
+    private String motivo;
 
     private String observacoes;
 
@@ -55,11 +62,11 @@ public class AgendamentoEntity {
         this.medicoId = medicoId;
     }
 
-    public String getDataAgendamento() {
+    public OffsetDateTime getDataAgendamento() {
         return dataAgendamento;
     }
 
-    public void setDataAgendamento(String dataAgendamento) {
+    public void setDataAgendamento(OffsetDateTime dataAgendamento) {
         this.dataAgendamento = dataAgendamento;
     }
 
@@ -77,6 +84,22 @@ public class AgendamentoEntity {
 
     public void setStatus(StatusAgendamento status) {
         this.status = status;
+    }
+
+    public Especialidade getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Especialidade especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public String getObservacoes() {

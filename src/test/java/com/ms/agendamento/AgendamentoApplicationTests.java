@@ -9,5 +9,4 @@ class AgendamentoApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

@@ -4,6 +4,7 @@ import com.ms.agendamento.application.usecase.AtualizaAgendamentoUseCase;
 import com.ms.agendamento.application.usecase.BuscaAgendamentoUseCase;
 import com.ms.agendamento.application.usecase.DeletaAgendamentoUseCase;
 import com.ms.agendamento.application.usecase.InserirAgendamentoUseCase;
+import com.ms.agendamento.domain.Especialidade;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
@@ -18,7 +19,9 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
@@ -59,18 +62,16 @@ public class AgendamentoController {
     @QueryMapping
     public List<AgendamentoDto> findAgendamento(@Argument AgendamentoFilter filter) {
 
-        filter = Optional.ofNullable(filter).orElse(new AgendamentoFilter());
+        filter = Objects.requireNonNullElse(filter, AgendamentoFilter.vazio());
 
-        TipoAtendimento tipo = Optional.ofNullable(filter.getTipoAtendimento())
-                .map(t -> TipoAtendimento.valueOf(t.name()))
-                .orElse(null);
-
-        StatusAgendamento st = Optional.ofNullable(filter.getStatus())
-                .map(s -> StatusAgendamento.valueOf(s.name()))
-                .orElse(null);
-
-        List<AgendamentoDomain> domain = buscaAgendamentoUseCase.buscaAgendamento(filter.getPacienteId(),
-                filter.getMedicoId(), tipo, st, filter.getDataAgendamento());
+        List<AgendamentoDomain> domain = buscaAgendamentoUseCase.buscaAgendamento(
+                filter.pacienteId(),
+                filter.medicoId(),
+                filter.tipoAtendimentoDomain(),
+                filter.statusDomain(),
+                filter.especialidadeDomain(),
+                filter.dataAgendamentoDomain()
+        );
 
         return AgendamentoPresenter.toAgendamentoListDto(domain);
     }

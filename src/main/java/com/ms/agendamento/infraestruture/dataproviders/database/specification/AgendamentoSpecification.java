@@ -1,17 +1,19 @@
 package com.ms.agendamento.infraestruture.dataproviders.database.specification;
 
+import com.ms.agendamento.domain.Especialidade;
 import com.ms.agendamento.domain.StatusAgendamento;
 import com.ms.agendamento.domain.TipoAtendimento;
 import com.ms.agendamento.infraestruture.dataproviders.database.entities.AgendamentoEntity;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.criteria.Predicate;
 
 public class AgendamentoSpecification {
 
-    public static Specification<AgendamentoEntity> filtrar(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status, String dataAgendamento){
+    public static Specification<AgendamentoEntity> filtrar(Long pacienteId, Long medicoId, TipoAtendimento tipo, StatusAgendamento status, Especialidade especialidade, OffsetDateTime dataAgendamento){
         return (root, query, cb)-> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -29,6 +31,10 @@ public class AgendamentoSpecification {
 
             if(status != null){
                 predicates.add(cb.equal(root.get("status"), status));
+            }
+
+            if(especialidade != null){
+                predicates.add(cb.equal(root.get("especialidade"), especialidade));
             }
 
             if(dataAgendamento != null){
