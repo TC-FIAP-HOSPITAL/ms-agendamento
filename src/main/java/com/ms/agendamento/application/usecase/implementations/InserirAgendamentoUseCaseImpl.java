@@ -30,9 +30,9 @@ public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase 
                 agendamentoDomain.getDataAgendamento());
 
         agendamentoDomain.setDataCriacao(new Date());
-        this.agendamento.salvar(agendamentoDomain);
+        var agendamentoSaved = this.agendamento.salvar(agendamentoDomain);
 
-        messagePublisher.publish(agendamentoDomain);
+        messagePublisher.publish(agendamentoSaved);
         return agendamentoDomain;
     }
 }

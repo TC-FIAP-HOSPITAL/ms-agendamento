@@ -31,9 +31,11 @@ public class AgendamentoImpl implements Agendamento {
     }
 
     @Override
-    public void salvar(AgendamentoDomain agendamentoDomain) {
+    public Optional<AgendamentoDomain> salvar(AgendamentoDomain agendamentoDomain) {
         var entity = AgendamentoEntityMapper.INSTANCE.toAgendamentoEntity(agendamentoDomain);
-        this.repository.save(entity);
+        var savedEntity = this.repository.save(entity);
+        var savedDomain = AgendamentoEntityMapper.INSTANCE.toAgendamentoDomain(savedEntity);
+        return Optional.of(savedDomain);
     }
 
     @Override

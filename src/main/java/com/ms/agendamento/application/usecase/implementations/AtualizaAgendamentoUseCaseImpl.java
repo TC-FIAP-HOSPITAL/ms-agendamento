@@ -33,8 +33,8 @@ public class AtualizaAgendamentoUseCaseImpl implements AtualizaAgendamentoUseCas
                 throw new RuntimeException("Agendamento não encontrado");
             }
 
-            this.agendamento.salvar(agendamentoDomain);
-            messagePublisher.publish(agendamentoDomain);
+            var agendamentoUpdated = this.agendamento.salvar(agendamentoDomain);
+            messagePublisher.publish(agendamentoUpdated);
 
             return agendamentoDomain;
         }
