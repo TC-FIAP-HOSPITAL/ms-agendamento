@@ -5,6 +5,7 @@ import com.ms.agendamento.application.gateways.MessagePublisher;
 import com.ms.agendamento.application.usecase.InserirAgendamentoUseCase;
 import com.ms.agendamento.domain.domainService.AgendamentoDomainService;
 import com.ms.agendamento.domain.model.AgendamentoDomain;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Date;
 
@@ -32,7 +33,12 @@ public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase 
         agendamentoDomain.setDataCriacao(new Date());
         var agendamentoSaved = this.agendamento.salvar(agendamentoDomain);
 
-        messagePublisher.publish(agendamentoSaved);
+        String jwt = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getCredentials()
+                .toString();
+
+        messagePublisher.publish(agendamentoSaved, jwt);
         return agendamentoDomain;
     }
 }

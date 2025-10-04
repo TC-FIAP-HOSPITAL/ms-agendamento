@@ -2,5 +2,5 @@ package com.ms.agendamento.application.gateways;
 
 public interface MessagePublisher {
 
-    void publish(Object message);
+    void publish(Object message, String jwtToken);
 }
