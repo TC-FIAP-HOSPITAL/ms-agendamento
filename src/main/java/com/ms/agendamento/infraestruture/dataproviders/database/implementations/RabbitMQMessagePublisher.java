@@ -1,7 +1,7 @@
 package com.ms.agendamento.infraestruture.dataproviders.database.implementations;
 
 import com.ms.agendamento.application.gateways.MessagePublisher;
-import com.ms.agendamento.infraestruture.dataproviders.config.RabbitMQConfig;
+import com.ms.agendamento.infraestruture.dataproviders.config.rabbitmq.RabbitMQConfig;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
 

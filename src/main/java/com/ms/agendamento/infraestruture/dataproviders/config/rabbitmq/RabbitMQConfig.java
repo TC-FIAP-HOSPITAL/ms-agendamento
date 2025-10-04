@@ -1,4 +1,4 @@
-package com.ms.agendamento.infraestruture.dataproviders.config;
+package com.ms.agendamento.infraestruture.dataproviders.config.rabbitmq;
 
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Binding;

@@ -44,9 +44,6 @@ public class AgendamentoController {
         this.buscaAgendamentoUseCase = buscaAgendamentoUseCase;
     }
 
-
-    //TODO: No graphql o nome do parametro deve ser request, se não ele não entende que é um request
-
     @MutationMapping
     public AgendamentoDto createAgendamento(@Argument AgendamentoRequestDto request) {
         var domain = AgendamentoPresenter.toAgendamentoDomain(request);
