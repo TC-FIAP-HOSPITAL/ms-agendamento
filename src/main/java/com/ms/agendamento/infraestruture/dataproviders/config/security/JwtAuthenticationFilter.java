@@ -1,59 +1,76 @@
 package com.ms.agendamento.infraestruture.dataproviders.config.security;
 
-import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil) {
-        this.jwtUtil = jwtUtil;
-    }
-
     @Override
-    public void doFilterInternal(HttpServletRequest request,
-                                 HttpServletResponse response,
-                                 FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
         String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-        try {
-            if (authHeader != null && authHeader.startsWith("Bearer ")) {
-                String token = authHeader.substring(7);
+        String token = authHeader.substring(7);
+        if (!jwtUtil.validateToken(token)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-                if (jwtUtil.isTokenValid(token)) {
-                    Long userId = jwtUtil.extractUserId(token);
+        Claims claims = jwtUtil.extractClaims(token);
+        String username = jwtUtil.extractUsername(claims);
+        Role role = jwtUtil.extractRole(claims);
+        String userIdClaim = jwtUtil.extractUserId(claims);
 
-                    UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(
-                                    userId, null, null
-                            );
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                } else {
-                    throw new JwtException("Token inválido");
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            Role resolvedRole = role != null ? role : Role.PACIENTE;
+            Collection<? extends GrantedAuthority> authorities = List
+                    .of(new SimpleGrantedAuthority(resolvedRole.toAuthority()));
+
+            Long userId = null;
+            if (userIdClaim != null && !userIdClaim.isBlank()) {
+                try {
+                    userId = Long.valueOf(userIdClaim);
+                } catch (NumberFormatException ignored) {
+                    // leave userId as null when claim is not numeric
                 }
             }
 
-            filterChain.doFilter(request, response);
+            MyUserDetails principal = MyUserDetails.builder()
+                    .userId(userId)
+                    .username(username)
+                    .authorities(authorities)
+                    .build();
 
-        } catch (JwtException e) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setContentType("application/json");
-            response.getWriter().write("{\"error\": \"Token JWT inválido ou expirado\"}");
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(principal,
+                    token, authorities);
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
+        filterChain.doFilter(request, response);
     }
 }
