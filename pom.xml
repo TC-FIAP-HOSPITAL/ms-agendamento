@@ -253,6 +253,10 @@
 						<exclude>**/agendamentoDomain/**</exclude>
 						<exclude>**/MsAgendamentoApplication.class/**</exclude>
 						<exclude>**/config/usecase/**</exclude>
+						<exclude>**/entrypoints/controllers/dtos/**</exclude>
+						<exclude>**/entrypoints/controllers/mappers/**</exclude>
+						<exclude>**/entrypoints/controllers/handler/**</exclude>
+						<exclude>**/infraestruture/dataproviders/config/rabbitmq/RabbitMQConfig.class</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
