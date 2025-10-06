@@ -7,15 +7,16 @@ import com.ms.agendamento.domain.TipoAtendimento;
 import java.time.OffsetDateTime;
 
 public record AgendamentoFilter (
-     Long pacienteId,
-     Long medicoId,
-     StatusAtendimentoDto status,
-     EspecialidadeDto especialidade,
-     TipoAtendimentoDto tipoAtendimento,
-     String dataAgendamento
+        Long agendamentoId,
+        Long pacienteId,
+        Long medicoId,
+        StatusAtendimentoDto status,
+        EspecialidadeDto especialidade,
+        TipoAtendimentoDto tipoAtendimento,
+        String dataAgendamento
 ){
     public static AgendamentoFilter vazio() {
-        return new AgendamentoFilter(null, null, null, null, null, null);
+        return new AgendamentoFilter(null, null, null, null, null, null, null);
     }
 
     public TipoAtendimento tipoAtendimentoDomain() {
