@@ -62,19 +62,27 @@ public class AgendamentoController {
 
     @QueryMapping
     public List<AgendamentoDto> findAgendamento(@Argument AgendamentoFilter filter) {
-        filter = Optional.ofNullable(filter).orElse(new AgendamentoFilter(null, null, null, null, null, null));
+        filter = Optional.ofNullable(filter).orElse(new AgendamentoFilter(null, null, null, null, null, null, null));
 
         Role role = securityUtil.getRole();
         boolean isAdmin = securityUtil.isAdmin();
 
         // Permite apenas ADMIN e ENFERMEIRO
-        if (!(Role.ENFERMEIRO.equals(role) || isAdmin)) {
+        if (!(Role.ENFERMEIRO.equals(role) || Role.PACIENTE.equals(role) || isAdmin)) {
             throw new AccessDeniedException("Access denied: insufficient permissions to view history");
         }
 
         Long currentUserId = securityUtil.getUserId();
         if (currentUserId == null) {
             throw new AccessDeniedException("Access denied: unable to determine authenticated user");
+        }
+
+        if (Role.PACIENTE.equals(role)) {
+            Long requestedIdPaciente = filter.pacienteId();
+            if (requestedIdPaciente != null && !requestedIdPaciente.equals(currentUserId)) {
+                throw new AccessDeniedException("Access denied: patients can only view their own history");
+            }
+            filter = new AgendamentoFilter(filter.agendamentoId(), currentUserId, null, null, null, null, null);
         }
 
         List<AgendamentoDomain> domain = buscaAgendamentoUseCase.buscaAgendamento(

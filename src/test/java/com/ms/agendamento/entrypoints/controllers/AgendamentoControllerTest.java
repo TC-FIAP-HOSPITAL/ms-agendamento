@@ -1,6 +1,7 @@
 package com.ms.agendamento.entrypoints.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -9,6 +10,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -141,6 +143,7 @@ class AgendamentoControllerTest {
         AgendamentoFilter filter = new AgendamentoFilter(
                 1L,
                 1L,
+                1L,
                 StatusAtendimentoDto.valueOf(agendamentoDomain.getStatus().name()),
                 EspecialidadeDto.valueOf(agendamentoDomain.getEspecialidade().name()),
                 TipoAtendimentoDto.valueOf(agendamentoDomain.getTipoAtendimento().name()),
@@ -169,14 +172,6 @@ class AgendamentoControllerTest {
     }
 
     @Test
-    void findAgendamento_deniedForPacienteRole() {
-        mockPacienteAccess();
-
-        assertThrows(AccessDeniedException.class, () -> controller.findAgendamento(AgendamentoFilter.vazio()));
-        verifyNoInteractions(buscaAgendamentoUseCase);
-    }
-
-    @Test
     void findAgendamento_deniedWhenUserIdMissing() {
         when(securityUtil.getRole()).thenReturn(Role.ENFERMEIRO);
         when(securityUtil.isAdmin()).thenReturn(false);
@@ -184,6 +179,20 @@ class AgendamentoControllerTest {
 
         assertThrows(AccessDeniedException.class, () -> controller.findAgendamento(AgendamentoFilter.vazio()));
         verifyNoInteractions(buscaAgendamentoUseCase);
+    }
+
+    @Test
+    void testBuscarHistoricos_Paciente_ProprioHistorico() {
+        when(securityUtil.getRole()).thenReturn(Role.PACIENTE);
+        when(securityUtil.getUserId()).thenReturn(10L);
+        when(securityUtil.isAdmin()).thenReturn(false);
+        when(buscaAgendamentoUseCase.buscaAgendamento(10L, null, null, null, null, null)).thenReturn(Collections.emptyList());
+
+        AgendamentoFilter filter = new AgendamentoFilter(10L, null, null, null, null, null, null);
+        List<AgendamentoDto> result = controller.findAgendamento(filter);
+
+        assertNotNull(result);
+        verify(buscaAgendamentoUseCase).buscaAgendamento(10L, null, null, null, null, null);
     }
 
     private void allowEditForEnfermeiro() {
