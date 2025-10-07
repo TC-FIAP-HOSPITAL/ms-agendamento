@@ -13,7 +13,7 @@ public interface Agendamento {
 
     void deleta(AgendamentoDomain agendamentoDomain);
 
-    Optional<AgendamentoDomain> salvar(AgendamentoDomain agendamentoDomain);
+    AgendamentoDomain salvar(AgendamentoDomain agendamentoDomain);
 
     Optional<AgendamentoDomain> buscarId(Long id);
 

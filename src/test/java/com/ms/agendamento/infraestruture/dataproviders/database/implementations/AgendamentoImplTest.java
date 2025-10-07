@@ -49,7 +49,7 @@ class AgendamentoImplTest {
 
         when(agendamentoRepository.save(any(AgendamentoEntity.class))).thenReturn(entity);
 
-        Optional<AgendamentoDomain> resultado = agendamento.salvar(domain);
+        Optional<AgendamentoDomain> resultado = Optional.ofNullable(agendamento.salvar(domain));
 
         assertThat(resultado).isPresent();
         verify(agendamentoRepository).save(any(AgendamentoEntity.class));
