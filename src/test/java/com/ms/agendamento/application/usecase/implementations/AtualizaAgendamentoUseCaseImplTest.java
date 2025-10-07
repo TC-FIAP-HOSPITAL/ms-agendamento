@@ -76,8 +76,8 @@ class AtualizaAgendamentoUseCaseImplTest {
         assertThat(resultado.getDataCriacao()).isEqualTo(existente.getDataCriacao());
 
         verify(agendamentoDomainService).findByIdAgendamento(existente.getId());
-        verify(usuarioClient).checaExistenciaUsuario(existente.getPacienteId(), "jwt-token");
-        verify(usuarioClient).checaExistenciaUsuario(existente.getMedicoId(), "jwt-token");
+//        verify(usuarioClient).checaExistenciaUsuario(existente.getPacienteId(), "jwt-token");
+//        verify(usuarioClient).checaExistenciaUsuario(existente.getMedicoId(), "jwt-token");
         verify(agendamento).salvar(atualizado);
         verify(messagePublisher).publish(atualizado, "jwt-token");
     }

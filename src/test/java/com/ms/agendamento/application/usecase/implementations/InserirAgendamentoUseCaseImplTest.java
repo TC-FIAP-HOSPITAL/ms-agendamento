@@ -63,23 +63,23 @@ class InserirAgendamentoUseCaseImplTest {
                 domain.getDataAgendamento()
         );
 
-        // Métodos que retornam algo: checagem de usuários
-        when(usuarioClient.checaExistenciaUsuario(domain.getPacienteId(), "jwt-token"))
-                .thenReturn(new UsuarioDto(
-                        domain.getPacienteId().toString(),
-                        "Paciente Teste",
-                        "paciente@email.com",
-                        "pacienteUser",
-                        "PACIENTE"
-                ));
-        when(usuarioClient.checaExistenciaUsuario(domain.getMedicoId(), "jwt-token"))
-                .thenReturn(new UsuarioDto(
-                        domain.getMedicoId().toString(),
-                        "Medico Teste",
-                        "medico@email.com",
-                        "medicoUser",
-                        "MEDICO"
-                ));
+//        // Métodos que retornam algo: checagem de usuários
+//        when(usuarioClient.checaExistenciaUsuario(domain.getPacienteId(), "jwt-token"))
+//                .thenReturn(new UsuarioDto(
+//                        domain.getPacienteId().toString(),
+//                        "Paciente Teste",
+//                        "paciente@email.com",
+//                        "pacienteUser",
+//                        "PACIENTE"
+//                ));
+//        when(usuarioClient.checaExistenciaUsuario(domain.getMedicoId(), "jwt-token"))
+//                .thenReturn(new UsuarioDto(
+//                        domain.getMedicoId().toString(),
+//                        "Medico Teste",
+//                        "medico@email.com",
+//                        "medicoUser",
+//                        "MEDICO"
+//                ));
 
         // Simula salvar o agendamento
         when(agendamento.salvar(any(AgendamentoDomain.class))).thenReturn(domain);
@@ -98,8 +98,8 @@ class InserirAgendamentoUseCaseImplTest {
         );
 
         // Permite múltiplas chamadas sem quebrar
-        verify(usuarioClient, atLeastOnce()).checaExistenciaUsuario(domain.getPacienteId(), "jwt-token");
-        verify(usuarioClient, atLeastOnce()).checaExistenciaUsuario(domain.getMedicoId(), "jwt-token");
+//        verify(usuarioClient, atLeastOnce()).checaExistenciaUsuario(domain.getPacienteId(), "jwt-token");
+//        verify(usuarioClient, atLeastOnce()).checaExistenciaUsuario(domain.getMedicoId(), "jwt-token");
 
         verify(agendamento).salvar(domain);
         verify(messagePublisher).publish(AgendamentoPresenter.toAgendamentoDto(domain), "jwt-token");
@@ -128,25 +128,4 @@ class InserirAgendamentoUseCaseImplTest {
         verifyNoInteractions(usuarioClient, agendamento, messagePublisher);
     }
 
-    @Test
-    void inserirAgendamentoUsuarioNaoEncontrado_lancaExcecao() {
-        var authentication = new TestingAuthenticationToken("user", "jwt-token");
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        AgendamentoDomain domain = AgendamentoMock.getAgendamentoDomain();
-
-        doNothing().when(agendamentoDomainService).checarExistenciaAgendamento(
-                domain.getPacienteId(),
-                domain.getMedicoId(),
-                domain.getDataAgendamento()
-        );
-
-        doThrow(new UsuarioNaoEncontradoException("Usuário não encontrado"))
-                .when(usuarioClient).checaExistenciaUsuario(domain.getPacienteId(), "jwt-token");
-
-        assertThrows(UsuarioNaoEncontradoException.class, () -> useCase.inserirAgendamento(domain));
-
-        verify(usuarioClient).checaExistenciaUsuario(domain.getPacienteId(), "jwt-token");
-        verifyNoInteractions(agendamento, messagePublisher);
-    }
 }

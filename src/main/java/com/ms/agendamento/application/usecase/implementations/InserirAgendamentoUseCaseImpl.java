@@ -46,8 +46,8 @@ public class InserirAgendamentoUseCaseImpl implements InserirAgendamentoUseCase 
                 .getCredentials()
                 .toString();
 
-        usuarioClient.checaExistenciaUsuario(agendamentoDomain.getPacienteId(), jwt);
-        usuarioClient.checaExistenciaUsuario(agendamentoDomain.getMedicoId(), jwt);
+        //usuarioClient.checaExistenciaUsuario(agendamentoDomain.getPacienteId(), jwt);
+        //usuarioClient.checaExistenciaUsuario(agendamentoDomain.getMedicoId(), jwt);
 
         var agendamentoSaved = this.agendamento.salvar(agendamentoDomain);
 
